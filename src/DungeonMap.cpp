@@ -18,7 +18,10 @@ DungeonMap::DungeonMap()
     //dice = rand() % 6 + 1; //[1-6]
     Point room = findRoomWall();
     digRect(room.x, room.y,1,1);
-    for(int a=0; a<100; a++){
+    for(int a=0; a<25; a++){
+        addCorridor();
+        addCorridor();
+        addCorridor();
         addCorridor();
         addRoom();
     }
@@ -196,7 +199,7 @@ void DungeonMap::addRoom()
     }
 
     //verify rect.
-    if(!rectInBounds(corStart.x,corStart.y,corDim.x, corDim.y)){
+    if(!rectInBounds(corStart.x-1,corStart.y-1,corDim.x+2, corDim.y+2)){
         return;
     }
     //are we clear to dig?
