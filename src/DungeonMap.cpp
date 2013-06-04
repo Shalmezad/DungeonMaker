@@ -18,6 +18,9 @@ DungeonMap::DungeonMap()
     //dice = rand() % 6 + 1; //[1-6]
     Point room = findRoomWall();
     digRect(room.x, room.y,1,1);
+    for(int a=0; a<100; a++){
+        addCorridor();
+    }
     cout<<"Dungeon Map constructed!"<<endl;
 }
 
@@ -115,4 +118,35 @@ bool DungeonMap::rectInBounds(int x, int y, int w, int h)
     }
     //at this point, it's passed.
     return true;
+}
+
+void DungeonMap::addCorridor()
+{
+    //find a wall.
+    Point corStart = findRoomWall();
+    //what are the dimmensions?
+    Point corDim;
+    if(rand()%2 == 1){
+        //vertical
+        corDim.x = 1;
+        corDim.y = rand() % 6 + 1;
+    }
+    else{
+        //horizontal
+        corDim.x = rand() % 6 + 1;
+        corDim.y = 1;
+    }
+
+    //are we a legal rect?
+    if(!rectInBounds(corStart.x,corStart.y,corDim.x, corDim.y)){
+        return;
+    }
+    //we're legal. But can we dig?
+    if(rectType(corStart.x,corStart.y,corDim.x, corDim.y) == MIXEDTYPE ||
+       rectType(corStart.x,corStart.y,corDim.x, corDim.y) == OPENSPACE)
+    {
+        return;
+    }
+    //We're good.
+    digRect(corStart.x,corStart.y,corDim.x, corDim.y);
 }

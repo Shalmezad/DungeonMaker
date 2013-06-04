@@ -33,6 +33,7 @@ class DungeonMap
         bool rectContains(WallTypes, int, int, int, int);
         Point findRoomWall();
         bool rectInBounds(int, int, int, int);
+        void addCorridor();
 };
 
 #endif // DUNGEONMAP_H
