@@ -20,6 +20,7 @@ DungeonMap::DungeonMap()
     digRect(room.x, room.y,1,1);
     for(int a=0; a<100; a++){
         addCorridor();
+        addRoom();
     }
     cout<<"Dungeon Map constructed!"<<endl;
 }
@@ -174,4 +175,25 @@ void DungeonMap::addCorridor()
         //We're good.
         digRect(corStart.x,corStart.y,corDim.x, corDim.y);
     }
+}
+
+void DungeonMap::addRoom()
+{
+    //find a wall.
+    Point corStart = findRoomWall();
+    //what are the dimmensions?
+    Point corDim;
+    corDim.x = rand() % 6 + 2;
+    corDim.y = rand() % 6 + 2;
+
+    //verify rect.
+    if(!rectInBounds(corStart.x,corStart.y,corDim.x, corDim.y)){
+        return;
+    }
+    //are we clear to dig?
+    if(rectType(corStart.x,corStart.y,corDim.x, corDim.y) != SOLIDWALL){
+        return;
+    }
+    //good to go. dig.
+    digRect(corStart.x,corStart.y,corDim.x, corDim.y);
 }

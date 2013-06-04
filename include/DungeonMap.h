@@ -34,6 +34,7 @@ class DungeonMap
         Point findRoomWall();
         bool rectInBounds(int, int, int, int);
         void addCorridor();
+        void addRoom();
 };
 
 #endif // DUNGEONMAP_H
