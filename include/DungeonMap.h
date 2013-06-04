@@ -8,7 +8,8 @@ const int DUNGEON_HEIGHT = 40;
 enum WallTypes
 {
     OPENSPACE = 0,
-    SOLIDWALL = 1
+    SOLIDWALL = 1,
+    MIXEDTYPE
 };
 
 class DungeonMap
@@ -22,6 +23,8 @@ class DungeonMap
     private:
         WallTypes dungeon[DUNGEON_WIDTH][DUNGEON_HEIGHT];
         void digRect(int,int,int,int);
+        WallTypes rectType(int,int,int,int);
+        bool rectContains(WallTypes, int, int, int, int);
 };
 
 #endif // DUNGEONMAP_H

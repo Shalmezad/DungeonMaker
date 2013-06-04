@@ -38,3 +38,29 @@ void DungeonMap::digRect(int x, int y, int w, int h)
         }
     }
 }
+
+WallTypes DungeonMap::rectType(int x,int y,int w,int h)
+{
+    WallTypes startType = dungeon[x][y];
+    for(int dx = x; dx < x + w; dx++){
+        for(int dy = y; dy < y + h; dy++){
+            if(dungeon[dx][dy] != startType){
+                return MIXEDTYPE;
+            }
+        }
+    }
+    return startType;
+}
+
+bool DungeonMap::rectContains(WallTypes searchType, int x, int y, int w, int h)
+{
+    for(int dx = x; dx < x + w; dx++){
+        for(int dy = y; dy < y + h; dy++)
+        {
+            if(dungeon[dx][dy] == searchType){
+                return true;
+            }
+        }
+    }
+    return false;
+}
