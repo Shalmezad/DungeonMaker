@@ -31,6 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
+		<Unit filename="include/DungeonMap.h" />
+		<Unit filename="main.cpp" />
+		<Unit filename="src/DungeonMap.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

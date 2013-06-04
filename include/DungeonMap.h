@@ -5,6 +5,12 @@
 const int DUNGEON_WIDTH = 76;
 const int DUNGEON_HEIGHT = 40;
 
+struct Point
+{
+    int x;
+    int y;
+};
+
 enum WallTypes
 {
     OPENSPACE = 0,
@@ -25,6 +31,8 @@ class DungeonMap
         void digRect(int,int,int,int);
         WallTypes rectType(int,int,int,int);
         bool rectContains(WallTypes, int, int, int, int);
+        Point findRoomWall();
+        bool rectInBounds(int, int, int, int);
 };
 
 #endif // DUNGEONMAP_H
