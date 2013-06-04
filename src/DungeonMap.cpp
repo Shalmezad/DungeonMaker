@@ -33,7 +33,13 @@ void DungeonMap::printMap()
 {
     for(int y=0; y<DUNGEON_HEIGHT; y++){
         for(int x=0; x<DUNGEON_WIDTH; x++){
-            cout<<dungeon[x][y];
+            if(dungeon[x][y] == OPENSPACE){
+                cout<<" ";
+            }
+            else{
+                cout<<"#";
+            }
+            //cout<<dungeon[x][y];
         }
         cout<<endl;
     }
@@ -130,23 +136,42 @@ void DungeonMap::addCorridor()
         //vertical
         corDim.x = 1;
         corDim.y = rand() % 6 + 1;
+        //do we shift?
+        if(rand()%2 == 1){
+            corStart.y-=corDim.y-1;
+        }
+        //are we a legal rect?
+        if(!rectInBounds(corStart.x-1,corStart.y,corDim.x+2, corDim.y)){
+            return;
+        }
+        //we're legal. But can we dig?
+        if(rectType(corStart.x-1,corStart.y,corDim.x+2, corDim.y) == MIXEDTYPE ||
+           rectType(corStart.x-1,corStart.y,corDim.x+2, corDim.y) == OPENSPACE)
+        {
+            return;
+        }
+        //We're good.
+        digRect(corStart.x,corStart.y,corDim.x, corDim.y);
     }
     else{
         //horizontal
         corDim.x = rand() % 6 + 1;
         corDim.y = 1;
+        //do we shift?
+        if(rand()%2 == 1){
+            corStart.x-=corDim.x-1;
+        }
+        //are we a legal rect?
+        if(!rectInBounds(corStart.x,corStart.y-1,corDim.x, corDim.y+2)){
+            return;
+        }
+        //we're legal. But can we dig?
+        if(rectType(corStart.x,corStart.y-1,corDim.x, corDim.y+2) == MIXEDTYPE ||
+           rectType(corStart.x,corStart.y-1,corDim.x, corDim.y+2) == OPENSPACE)
+        {
+            return;
+        }
+        //We're good.
+        digRect(corStart.x,corStart.y,corDim.x, corDim.y);
     }
-
-    //are we a legal rect?
-    if(!rectInBounds(corStart.x,corStart.y,corDim.x, corDim.y)){
-        return;
-    }
-    //we're legal. But can we dig?
-    if(rectType(corStart.x,corStart.y,corDim.x, corDim.y) == MIXEDTYPE ||
-       rectType(corStart.x,corStart.y,corDim.x, corDim.y) == OPENSPACE)
-    {
-        return;
-    }
-    //We're good.
-    digRect(corStart.x,corStart.y,corDim.x, corDim.y);
 }
