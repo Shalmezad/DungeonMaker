@@ -12,5 +12,6 @@ int main()
 {
     DungeonMap dm;
     cout<<"Hello world"<<endl;
+    dm.printMap();
     return 0;
 }
