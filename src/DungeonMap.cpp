@@ -186,6 +186,15 @@ void DungeonMap::addRoom()
     corDim.x = rand() % 6 + 2;
     corDim.y = rand() % 6 + 2;
 
+    if(rand()%2 == 1){
+        //shift up.
+        corStart.y -= corDim.y-1;
+    }
+    if(rand()%2 == 1){
+        //shift left.
+        corStart.x -= corDim.x-1;
+    }
+
     //verify rect.
     if(!rectInBounds(corStart.x,corStart.y,corDim.x, corDim.y)){
         return;
